@@ -16,8 +16,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 
 import { useState } from "react";
 import { LoaderCircle } from "lucide-react";
-import { toast } from "react-hot-toast";
+import { toast } from "sonner";
 import { AuthFormProps } from "./AuthForm";
+import { sendRecoveryEmail } from "@/actions/auth/auth";
 
 
 const RecoverPasswordForm = ({ setTypeSelected }: AuthFormProps) => {
@@ -47,7 +48,14 @@ const RecoverPasswordForm = ({ setTypeSelected }: AuthFormProps) => {
 
         try {
 
-            console.log(user);
+            const res = await sendRecoveryEmail(user);
+
+            if (res.success) {
+                toast.success(res.message || "Correo de recuperación enviado exitosamente", { duration: 2500 });
+                setTypeSelected("sign-in");
+            } else {
+                toast.error(res.error || "Ocurrió un error", { duration: 2500 });
+            }
 
 
         } catch (error: any) {
