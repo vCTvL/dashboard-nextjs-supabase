@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/sonner";
+import { AuthProvider } from "@/context/AuthContext";
 
 const inter = Inter({
   variable: "--font-sans",
@@ -24,8 +25,13 @@ export default function RootLayout({
       className={`${inter.variable} dark`}
     >
       <body className="min-h-full flex flex-col">
-        {children}
-        <Toaster />
+
+        <AuthProvider>
+
+          {children}
+          <Toaster />
+        </AuthProvider>
+
       </body>
     </html>
   );
