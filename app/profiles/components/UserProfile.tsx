@@ -195,7 +195,7 @@ const UserProfile: React.FC<UserProfileProps> = ({
                             </Button>
 
 
-                            <Link href="/#" intermediate-link="true">
+                            <Link href="/update-password" intermediate-link="true">
                                 <Button
                                     variant="outline"
                                     className="w-full justify-start h-14"
@@ -215,7 +215,14 @@ const UserProfile: React.FC<UserProfileProps> = ({
                                 <Button
                                     variant="outline"
                                     className="w-full justify-start h-14 text-destructive border-destructive/20 hover:bg-destructive/10 hover:text-destructive"
-                                    onClick={onLogout}
+                                    onClick={async () => {
+                                        await fetch('/api/auth/signout', {
+                                            method: 'POST'
+                                        })
+
+                                        window.location.href = '/'
+                                    }}
+
                                 >
                                     <LogOut className="mr-3 h-5 w-5" />
                                     <div className="text-left">

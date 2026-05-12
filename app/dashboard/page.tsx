@@ -33,7 +33,18 @@ export default function DashboardPage() {
 
 
             </nav>
+            <button
+                onClick={async () => {
+                    await fetch('/api/auth/signout', {
+                        method: 'POST'
+                    })
 
+                    window.location.href = '/'
+                }}
+                className="bg-white/20 text-white px-20 py-2 rounded"
+            >
+                Logout
+            </button>
 
         </>
     )
